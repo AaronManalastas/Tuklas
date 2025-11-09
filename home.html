@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CozyCarry Co. — Nurturing Every Journey</title>
+  <meta name="description" content="CozyCarry Co. — Hands-free baby carrier with therapeutic heat pads and enhanced back support. Mission, vision, objectives, leadership team, and product highlights.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f1a;          /* deep night */
+      --bg2:#0f1626;         /* softer night */
+      --ink:#e7eefc;         /* text */
+      --muted:#9bb0d1;       /* secondary */
+      --primary:#7dd3fc;     /* cyan */
+      --accent:#fb7185;      /* sakura */
+      --warn:#f59e0b;        /* amber */
+      --rim1:#35c3ff;        /* border gradient A */
+      --rim2:#ff72d2;        /* border gradient B */
+      --rim3:#ffc857;        /* border gradient C */
+      --card:#0f172acc;      /* translucent */
+      --radius:18px;
+      --radius-lg:24px;
+      --shadow:0 20px 50px rgba(0,0,0,.55);
+    }
+    *, *::before, *::after{ box-sizing:border-box }
+    html, body{ height:100% }
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      color:var(--ink);
+      background:
+        radial-gradient(1400px 900px at 70% -10%, #1a2540 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* ---------- Subtle anime background grid + scanlines ---------- */
+    .bg-grid{
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 38px 38px, 38px 38px;
+      transform: translateZ(0);
+      animation:gridPan 40s linear infinite;
+      opacity:.35;
+    }
+    @keyframes gridPan{
+      0%{ transform: translate3d(0,0,0) }
+      100%{ transform: translate3d(-38px,-38px,0) }
+    }
+    .scanline{
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 2px, transparent 4px);
+      mix-blend-mode:soft-light; opacity:.15;
+      animation:scan 7s linear infinite;
+    }
+    @keyframes scan{
+      0%{ transform:translateY(-10%) }
+      100%{ transform:translateY(10%) }
+    }
+
+    /* ---------- Header ---------- */
+    header{
+      position:fixed; top:0; left:0; right:0; z-index:80;
+      background:rgba(9,13,22,.6);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(12px) saturate(130%);
+      transition: background .35s ease, box-shadow .35s ease;
+    }
+    header.compact{ background:rgba(9,13,22,.88); box-shadow:var(--shadow) }
+    .scrollbar{position:absolute; left:0; top:0; height:3px; width:0; background:linear-gradient(90deg, var(--primary), var(--accent)); box-shadow:0 0 10px rgba(125,211,252,.65)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .container{width:min(1200px, 92%); margin-inline:auto}
+    .brand{display:flex; align-items:center; gap:.8rem}
+    .brand img{width:48px; height:48px; filter:drop-shadow(0 6px 12px rgba(53,195,255,.35))}
+    .brand b{letter-spacing:.2px}
+    nav a{margin-left:18px; color:var(--ink); opacity:.92; position:relative; text-decoration:none}
+    nav a::after{content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; transform:scaleX(0); transform-origin:left; background:linear-gradient(90deg, var(--primary), var(--accent)); transition:transform .25s ease}
+    nav a:hover::after{transform:scaleX(1)}
+    .nav-spacer{height:82px}
+
+    /* ---------- Utility ---------- */
+    .section{padding:96px 0}
+    .title{font-size:clamp(2rem,1rem + 2.6vw, 3rem); line-height:1.05}
+    .muted{color:var(--muted)}
+    .grid{display:grid; gap:1.2rem}
+    .pill{display:inline-flex; align-items:center; gap:.6rem; padding:.55rem .9rem; border:1px solid rgba(125,211,252,.18); background:rgba(11,17,29,.55); border-radius:999px}
+    .btn{display:inline-flex; align-items:center; gap:.6rem; padding:1rem 1.15rem; border-radius:14px; color:#0b0f1a; background:linear-gradient(180deg,#a5f3fc,#67e8f9); font-weight:900; border:none; cursor:pointer; box-shadow:0 10px 24px rgba(103,232,249,.25); transition:filter .2s}
+    .btn.alt{background:linear-gradient(180deg,#fda4af,#fb7185); box-shadow:0 10px 24px rgba(251,113,133,.25)}
+    .btn:hover{filter:brightness(1.03)}
+    .magnet{position:relative; --mx:0px; --my:0px; transform:translate(var(--mx),var(--my)); transition:transform .08s ease}
+
+    /* ---------- Anime wipe panels ---------- */
+    .wipe{--r:22px; position:relative; isolation:isolate}
+    .wipe-in{clip-path: inset(0 0 100% 0 round var(--r)); transition: clip-path 820ms cubic-bezier(.2,.7,.2,1)}
+    .wipe.on .wipe-in{clip-path: inset(0 0 0 0 round var(--r))}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.09); border-radius:var(--r); padding:24px; box-shadow:var(--shadow); backdrop-filter: blur(8px) saturate(130%)}
+
+    /* ---------- Cyber rim card ---------- */
+    .card{
+      position:relative; border-radius:var(--radius); padding:24px; background:rgba(10,15,26,.65);
+      border:1px solid rgba(255,255,255,.06); box-shadow:var(--shadow); overflow:hidden
+    }
+    .card::before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+      background: linear-gradient(135deg, var(--rim1), var(--rim2), var(--rim3));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation:rim 6s linear infinite;
+      opacity:.65;
+    }
+    @keyframes rim{
+      0%{ filter:hue-rotate(0deg) }
+      100%{ filter:hue-rotate(360deg) }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero h1{letter-spacing:.2px}
+    .hero .eyebrow{background:linear-gradient(90deg, rgba(125,211,252,.16), rgba(251,113,133,.12)); border:1px solid rgba(125,211,252,.2)}
+    .cta{margin-top:24px; display:flex; gap:12px; flex-wrap:wrap}
+    .stats{margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    .stat{padding:16px 18px; border-radius:14px; background:rgba(12,18,31,.7); border:1px solid rgba(255,255,255,.08); text-align:center}
+    .stat b{font-size:1.25rem}
+
+    /* ---------- Mission / Vision ---------- */
+    .two-col{display:grid; grid-template-columns:1.05fr 1fr; gap:22px}
+    .two-col .card{min-height:220px}
+
+    /* ---------- Objectives & Board ---------- */
+    .objectives{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px}
+    .objective{position:relative; padding-left:52px}
+    .objective .icon{position:absolute; left:16px; top:20px; width:24px; height:24px; opacity:.9}
+
+    .board{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px}
+    .avatar{width:72px; height:72px; border-radius:16px; object-fit:cover; border:2px solid rgba(255,255,255,.15); background:#0f172a}
+
+    /* === Enhanced Board Cards (ONLY for Board section) === */
+    .member-card{transition:transform .25s ease, box-shadow .25s ease}
+    .member-card:hover{transform:translateY(-4px)}
+    .member-top{display:flex; align-items:center; gap:14px}
+    .avatar-wrap{position:relative; width:72px; height:72px; border-radius:16px; overflow:hidden}
+    .avatar-wrap::after{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+      background:linear-gradient(135deg, rgba(125,211,252,.6), rgba(251,113,133,.6), rgba(255,200,87,.6));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor; mask-composite:exclude; opacity:.65;
+    }
+    .member-name{margin:0 0 2px; font-weight:800; letter-spacing:.2px}
+    .role-badge{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.4rem .6rem; border-radius:999px;
+      font-size:.86rem; font-weight:700; letter-spacing:.2px;
+      background:rgba(125,211,252,.12); border:1px solid rgba(125,211,252,.26);
+      margin:10px 0 6px;
+    }
+    .tagline{font-size:.92rem; line-height:1.45; color:var(--muted)}
+    .profile-link{
+      display:inline-block; margin-top:10px; font-size:.9rem; opacity:.9;
+      text-decoration:none; position:relative;
+    }
+    .profile-link::after{
+      content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px;
+      background:linear-gradient(90deg,var(--primary),var(--accent)); transform:scaleX(0); transform-origin:left;
+      transition:transform .25s ease;
+    }
+    .profile-link:hover::after{transform:scaleX(1)}
+
+    /* ---------- Product hero (slideshow) ---------- */
+    .product-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+    .product-hero{position:relative; min-height:360px; border-radius:var(--radius-lg); overflow:hidden; background: radial-gradient(140% 160% at 15% 10%, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)}
+    .showcase{position:absolute; inset:0}
+    .showcase img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 40%; opacity:0; transform:scale(1.02); transition:opacity .55s ease}
+    .showcase img.portrait{object-fit:contain; padding:16px; background: radial-gradient(100% 140% at 50% 90%, rgba(11,17,29,.85), rgba(11,17,29,.95))}
+    .showcase img.active{opacity:1; animation:kb 16s ease-in-out infinite}
+    @keyframes kb{0%{transform:scale(1.02)}50%{transform:scale(1.06) translateY(-2px)}100%{transform:scale(1.02)}}
+
+    /* ---------- Reveal / Step ---------- */
+    .step{opacity:0; transform:translateY(26px) scale(.985); transition:opacity .7s ease, transform .7s ease; transition-delay:var(--d,0ms)}
+    .step.on{opacity:1; transform:none}
+    .from-left{transform:translateX(-30px)}
+    .from-right{transform:translateX(30px)}
+    .from-left.on,.from-right.on{transform:translateX(0)}
+
+    /* ---------- Deck mode ---------- */
+    body.deck .section{min-height:100vh; display:flex; align-items:center; scroll-margin-top:82px}
+    body.deck{scroll-snap-type:y mandatory}
+    body.deck .section{scroll-snap-align:start}
+    .deck-dots{position:fixed; right:16px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:70; pointer-events:none}
+    .deck-dots .dot{width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.25); box-shadow:0 0 12px rgba(0,0,0,.4); transition:transform .2s, background .2s}
+    .deck-dots .dot.on{background:linear-gradient(90deg, var(--primary), var(--accent)); transform:scale(1.25)}
+
+    /* ---------- Footer ---------- */
+    footer{padding:56px 0 72px; border-top:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(9,13,22,.85), rgba(9,13,22,.96))}
+    .foot{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:28px}
+
+    /* ---------- Reduced Motion ---------- */
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important; transition:none!important}
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px){
+      .two-col{grid-template-columns:1fr}
+      .product-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr 1fr}
+      .foot{grid-template-columns:1fr}
+      .product-hero{min-height:300px}
+    }
+    @media (max-width: 560px){
+      .product-hero{min-height:240px}
+      .showcase img.portrait{padding:10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <!-- Header -->
+  <header id="top">
+    <div class="scrollbar"></div>
+    <div class="container nav">
+      <div class="brand">
+        <img src="logoo.png" alt="CozyCarry Trading" />
+        <b>CozyCarry <span style="color:var(--accent)">Trading</span></b>
+      </div>
+      <nav>
+        <a href="#mission">Mission & Vision</a>
+        <a href="#objectives">Objectives</a>
+        <a href="#board">Board</a>
+        <a href="#product">Product</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-spacer"></div>
+
+  <!-- Hero -->
+  <section class="section container wipe" data-stagger>
+    <div class="wipe-in">
+      <span class="pill eyebrow step from-left">Nurturing Every Journey, One Embrace at a Time</span>
+      <h1 class="title step from-left">Ergonomic & Therapeutic Baby Carriers comfort for parents, care for babies.</h1>
+      <p class="muted step from-left" style="max-width:72ch">Our hands-free carrier integrates therapeutic heat pad, enhanced back support, and hood crafted with ergonomic design so parents can move with ease and bond longer with their child anytime, anywhere.</p>
+      <div class="cta step from-left">
+        <a class="btn magnet" href="#product">See the Carrier</a>
+        <a class="btn alt magnet" href="#contact">Talk to Us</a>
+      </div>
+      <div class="stats step from-right">
+        <div class="stat"><b id="st1">0%</b><div class="muted">Focus on comfort</div></div>
+        <div class="stat"><b id="st2">0</b><div class="muted">Objectives in action</div></div>
+        <div class="stat"><b id="st3">0</b><div class="muted">Leaders on board</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission / Vision -->
+  <section id="mission" class="section container wipe" data-stagger>
+    <div class="wipe-in two-col">
+      <article class="card step from-left">
+        <h2 class="title">Our Mission</h2>
+        <p class="muted">To design, manufacture, and market baby carriers that provide effective support, superior comfort, and therapeutic benefits to parents worldwide. We leverage cutting edge technology and ergonomic design to alleviate physical strain, promote proper posture, and foster a stronger bond between parent and child delivering quality, innovation, and social responsibility.</p>
+      </article>
+      <article class="card step from-right">
+        <h2 class="title">Our Vision</h2>
+        <p class="muted">To be the leading provider of ergonomic and therapeutic baby carriers recognized for enhancing the well-being of both parents and children setting a new standard by combining health conscious design with practical functionality.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Objectives -->
+  <section id="objectives" class="section container wipe" data-stagger>
+    <div class="wipe-in">
+      <h2 class="title step from-left">Company Objectives</h2>
+      <div class="objectives">
+        <div class="card objective step from-left">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M3 4h18v4H3zM6 8v12m6-12v12m6-12v12"/></svg>
+          <h4>Marketing</h4>
+          <p class="muted">Understand urban parents in Lipa; launch ergonomic + therapeutic campaigns; partner with parenting groups and healthcare providers for demos & feedback.</p>
+        </div>
+        <div class="card objective step from-right">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M4 7h16M4 12h16M4 17h10"/></svg>
+          <h4>Product Development & Management</h4>
+          <p class="muted">Prioritize comfort and well-being; iterate with customer feedback; integrate smart improvements that enhance daily usability.</p>
+        </div>
+        <div class="card objective step from-left">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M3 12h18M3 6h18M3 18h18"/></svg>
+          <h4>Operational</h4>
+          <p class="muted">Optimize production for efficiency and safety; source eco-friendly materials; enforce rigorous quality control.</p>
+        </div>
+        <div class="card objective step from-right">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M4 12l6 6L20 6"/></svg>
+          <h4>Financial</h4>
+          <p class="muted">Target profitability in year one and meaningful city share within two years via smart pricing and focused marketing.</p>
+        </div>
+        <div class="card objective step from-left">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M12 2v20M2 12h20"/></svg>
+          <h4>Socio-Economic</h4>
+          <p class="muted">Improve parental health, create local jobs, and back sustainable manufacturing in Lipa City.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Board -->
+  <section id="board" class="section container wipe" data-stagger>
+    <div class="wipe-in">
+      <h2 class="title step from-left">Meet Our Board of Directors</h2>
+      <div class="board">
+        <!-- Kyla -->
+        <div class="card member-card step from-left">
+          <div class="member-top">
+            <span class="avatar-wrap">
+              <img class="avatar" src="kyla.jpg" alt="Princess Kyla B. Icaro">
+            </span>
+            <div>
+              <h3 class="member-name">Princess Kyla B. Icaro</h3>
+              
+            </div>
+          </div>
+          <p class="tagline">Shapes our brand story and visual language from campaigns to product touchpoints for a consistent, memorable identity.</p>
+          <a class="profile-link"  target="_blank" rel="noopener">Creative Director</a>
+        </div>
+
+        <!-- Joana -->
+        <div class="card member-card step from-right">
+          <div class="member-top">
+            <span class="avatar-wrap">
+              <img class="avatar" src="jo.jpg" alt="Joana Rose G. Centino">
+            </span>
+            <div>
+              <h3 class="member-name">Joana Rose G. Centino</h3>
+              
+            </div>
+          </div>
+          <p class="tagline">Champions client trust, smooth onboarding, and long term partnerships that fuel repeat business and referrals.</p>
+          <a class="profile-link"  target="_blank" rel="noopener">Client Relations Director</a>
+        </div>
+
+        <!-- Aljhon -->
+        <div class="card member-card step from-left">
+          <div class="member-top">
+            <span class="avatar-wrap">
+              <img class="avatar" src="al.jpg" alt="Aljhon Jay De Leus">
+            </span>
+            <div>
+              <h3 class="member-name">Aljhon Jay De Leus</h3>
+              
+            </div>
+          </div>
+          <p class="tagline">Opens new markets and strategic deals, aligning partnerships with revenue goals and product roadmap.</p>
+          <a class="profile-link"  target="_blank" rel="noopener">Business Development Manager</a>
+        </div>
+
+        <!-- John -->
+        <div class="card member-card step from-right">
+          <div class="member-top">
+            <span class="avatar-wrap">
+              <img class="avatar" src="joh.jpg" alt="John Erick D. Oro">
+            </span>
+            <div>
+              <h3 class="member-name">John Erick D. Oro</h3>
+              
+            </div>
+          </div>
+          <p class="tagline">Architects, scalable solutions and ensures engineering quality, security, and delivery velocity.</p>
+          <a class="profile-link"  target="_blank" rel="noopener">Technical Lead</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product -->
+  <section id="product" class="section container wipe" data-stagger>
+    <div class="wipe-in">
+      <h2 class="title step from-left">Discover the CozyCarry Trading Difference</h2>
+      <div class="product-grid">
+        <div class="product-hero step from-left">
+          <div class="showcase">
+            <img src="image1.png" alt="CozyCarry 1" class="active">
+            <img src="image2.png" alt="CozyCarry 2">
+            <img src="image3.png" alt="CozyCarry 3">
+          </div>
+        </div>
+        <div class="card step from-right">
+          <ul class="grid" style="list-style:none; padding:0; margin:0">
+            <li class="pill">Hands-free carrying for daily tasks</li>
+            <li class="pill">Integrated therapeutic heat pad for comfort & relief</li>
+            <li class="pill">Adjustable straps, breathable fabric, lumbar support</li>
+            <li class="pill">Versatile for various activities; promotes bonding</li>
+          </ul>
+          <p class="muted" style="margin-top:14px">Designed for optimal comfort and convenience so parents can carry babies for longer without discomfort.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section container wipe" data-stagger>
+    <div class="wipe-in card step from-left">
+      <h2 class="title">Let’s connect</h2>
+      <p class="muted">Want demos, partnerships, or feedback sessions with healthcare providers and parenting groups? Leave your email—We’ll reach out.</p>
+      <form class="grid" id="form">
+        <input aria-label="Your name" placeholder="Your name" required style="padding:14px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.06); color:var(--ink)">
+        <input aria-label="Email" type="email" placeholder="Email" required style="padding:14px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.06); color:var(--ink)">
+        <button class="btn magnet" type="submit">Request a demo</button>
+      </form>
+      <div id="thanks" class="muted" style="display:none; margin-top:10px">Thanks! We’ll be in touch soon.</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>
+          <div class="brand" style="margin-bottom:10px">
+            <img src="logoo.png" alt="CozyCarry logo" style="width:32px;height:32px;opacity:.9">
+            <div style="font-weight:900">CozyCarry Trading</div>
+          </div>
+          <p class="muted">Enhancing the well-being of both parent and child through health-conscious design and practical functionality.</p>
+        </div>
+        <div>
+          <h4 style="margin:0 0 8px">Explore</h4>
+          <a href="#mission" style="color:var(--ink);opacity:.85">Mission & Vision</a><br>
+          <a href="#objectives" style="color:var(--ink);opacity:.85">Objectives</a><br>
+          <a href="#board" style="color:var(--ink);opacity:.85">Board</a><br>
+          <a href="#product" style="color:var(--ink);opacity:.85">Product</a>
+        </div>
+        <div>
+          <h4 style="margin:0 0 8px">Follow</h4>
+          <a style="color:var(--ink);opacity:.85" href="https://www.linkedin.com/in/princess-kyla-icaro-806138368/" target="_blank" rel="noopener">Princess Kyla B. Icaro</a><br>
+          <a style="color:var(--ink);opacity:.85" href="https://www.linkedin.com/in/joana-rose-centino-0b569b385/" target="_blank" rel="noopener">Joana Rose G. Centino</a><br>
+          <a style="color:var(--ink);opacity:.85" href="https://www.linkedin.com/in/aljhon-jay-de-leus-450073386/" target="_blank" rel="noopener">Aljhon Jay De Leus</a><br>
+          <a style="color:var(--ink);opacity:.85" href="https://www.linkedin.com/in/john-erick-oro-bbb6aa385/" target="_blank" rel="noopener">John Erick D. Oro</a>
+        </div>
+      </div>
+      <div class="muted" style="margin-top:28px">© <span id="year"></span> CozyCarry Trading All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky header + progress bar
+    const header = document.querySelector('header');
+    const bar = document.querySelector('.scrollbar');
+    addEventListener('scroll', ()=>{
+      const y = scrollY;
+      header.classList.toggle('compact', y>8);
+      const docH = document.documentElement.scrollHeight - innerHeight;
+      bar.style.width = ((y/(docH||1))*100).toFixed(2) + '%';
+    }, {passive:true});
+
+    // Stagger reveal + wipe
+    const wipeIO = new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); wipeIO.unobserve(e.target) } });
+    }, {threshold:.18});
+    document.querySelectorAll('.wipe').forEach(el=>wipeIO.observe(el));
+
+    const stepIO = new IntersectionObserver((es)=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){
+          const parent = e.target.closest('[data-stagger]');
+          if(parent && !parent.__staggerApplied){
+            parent.__staggerApplied = true;
+            parent.querySelectorAll('.step').forEach((el,i)=> el.style.setProperty('--d', (i*85)+'ms'));
+          }
+          e.target.classList.add('on');
+          stepIO.unobserve(e.target);
+        }
+      });
+    }, {threshold:.12});
+    document.querySelectorAll('.step').forEach(el=>stepIO.observe(el));
+
+    // Counters
+    function countTo(el, to, suffix=""){
+      const start = 0, dur = 1200, t0 = performance.now();
+      function tick(now){
+        const p = Math.min(1, (now-t0)/dur);
+        const eased = 1 - Math.pow(1-p,3);
+        el.textContent = Math.round(start + (to-start)*eased) + suffix;
+        if(p<1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    countTo(document.getElementById('st1'), 100, '%');
+    countTo(document.getElementById('st2'), 5, '');
+    countTo(document.getElementById('st3'), 4, '');
+
+    // Magnetic buttons
+    document.querySelectorAll('.magnet').forEach(btn=>{
+      const str = 12;
+      btn.addEventListener('mousemove', e=>{
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--mx', ( (e.clientX - (r.left+r.width/2))/str ) + 'px');
+        btn.style.setProperty('--my', ( (e.clientY - (r.top+r.height/2))/str ) + 'px');
+      });
+      btn.addEventListener('mouseleave', ()=>{ btn.style.removeProperty('--mx'); btn.style.removeProperty('--my'); });
+    });
+
+    // Contact demo
+    const form = document.getElementById('form');
+    const thanks = document.getElementById('thanks');
+    form?.addEventListener('submit', (e)=>{ e.preventDefault(); thanks.style.display='block'; form.reset(); });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Slideshow (smart portrait-fit)
+    (function(){
+      const imgs = Array.from(document.querySelectorAll('.product-hero .showcase img'));
+      if(!imgs.length) return;
+      const tag = img => { if(img.naturalHeight > img.naturalWidth) img.classList.add('portrait') };
+      imgs.forEach(img => img.complete ? tag(img) : img.addEventListener('load', ()=>tag(img), {once:true}));
+      let i=0; imgs[i].classList.add('active');
+      setInterval(()=>{ imgs[i].classList.remove('active'); i=(i+1)%imgs.length; imgs[i].classList.add('active'); }, 2000);
+    })();
+
+    // Deck mode (Shift + P) + dots + arrows
+    const sections = Array.from(document.querySelectorAll('.section'));
+    const dotsWrap = document.createElement('div'); dotsWrap.className='deck-dots';
+    sections.forEach(()=>{ const d=document.createElement('span'); d.className='dot'; dotsWrap.appendChild(d); });
+    document.body.appendChild(dotsWrap);
+    const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+    function highlightDot(){
+      let idx = sections.findIndex(s => s.getBoundingClientRect().top > 1) - 1;
+      if(idx < 0) idx = sections.length-1;
+      dots.forEach((d,i)=>d.classList.toggle('on', i===idx));
+    }
+    addEventListener('scroll', highlightDot, {passive:true}); highlightDot();
+
+    addEventListener('keydown', (e)=>{
+      if(e.shiftKey && e.key.toLowerCase()==='p'){
+        document.body.classList.toggle('deck');
+        sections[0].scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+    addEventListener('keydown', (e)=>{
+      if(!document.body.classList.contains('deck')) return;
+      const current = sections.reduce((best,s,i)=>{
+        const t = s.getBoundingClientRect().top; return Math.abs(t)<Math.abs(best.delta)?{idx:i,delta:t}:best;
+      },{idx:0,delta:Infinity}).idx;
+      if(e.key==='ArrowDown'){ e.preventDefault(); sections[Math.min(current+1,sections.length-1)].scrollIntoView({behavior:'smooth'}); }
+      if(e.key==='ArrowUp'){ e.preventDefault(); sections[Math.max(current-1,0)].scrollIntoView({behavior:'smooth'}); }
+    });
+  </script>
+</body>
+</html>
